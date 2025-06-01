@@ -1,0 +1,36 @@
+# Delphi Compiled Files
+*.dcu
+*.dpu
+*.dcpil
+*.drc
+
+# Executables and Libraries
+*.exe
+*.dll
+*.bpl
+
+# IDE and Project Files
+*.dproj.local
+*.dsk
+*.identcache
+*.tvsconfig
+*.stat
+*.~*
+
+# Debug and Backup Files
+*.tds
+*.map
+*.rsm
+*.bak
+*.bk?
+
+# Platform-Specific Output Folders
+/Win32/
+/Win64/
+/OSX32/
+/iOSDevice/
+/iOSSimulator/
+/Android/
+/Linux64/
+/Debug/
+/Release/
