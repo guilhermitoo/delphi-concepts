@@ -4,9 +4,14 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
-  Vcl.Graphics, System.Math,
+  Vcl.Graphics, System.Math, Rest.JSON,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, System.Threading,
-  Vcl.ExtCtrls;
+  Vcl.ExtCtrls, Data.FMTBcd, Data.DB, Data.SqlExpr, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf,
+  FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys,
+  FireDAC.Phys.FB, FireDAC.Phys.FBDef, FireDAC.VCLUI.Wait, FireDAC.Comp.Client,
+  FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt,
+  FireDAC.Comp.DataSet, Vcl.Grids, Vcl.DBGrids, Vcl.Mask;
 
 type
   TfrmConcepts = class(TForm)
@@ -43,9 +48,25 @@ type
     edtInputLC3: TEdit;
     edtOutputLC3: TEdit;
     RichEdit1: TRichEdit;
+    tsRTTI: TTabSheet;
+    FDConnection1: TFDConnection;
+    fdqProducts: TFDQuery;
+    btnLoadProductsRTTI: TButton;
+    dsProducts: TDataSource;
+    mmoProducts: TMemo;
+    pnlProductsList: TPanel;
+    pnlCrudProducts: TPanel;
+    lblID: TLabeledEdit;
+    lblDescription: TLabeledEdit;
+    lblCost: TLabeledEdit;
+    lblCategory: TLabeledEdit;
+    pnlProductButtons: TPanel;
+    btnProductInsert: TButton;
     procedure btnThreadStartClick(Sender: TObject);
     procedure btnTwoSumClick(Sender: TObject);
     procedure btnLC3Click(Sender: TObject);
+    procedure btnLoadProductsRTTIClick(Sender: TObject);
+    procedure btnProductInsertClick(Sender: TObject);
   private
     { Private declarations }
     procedure ProcessProgressBar(ANumber : Integer);
@@ -61,13 +82,50 @@ var
 implementation
 
 uses
-  uUtils;
+  uUtils, uRttiExample, System.JSON;
 
 {$R *.dfm}
 
 procedure TfrmConcepts.btnLC3Click(Sender: TObject);
 begin
   edtOutputLC3.Text := lengthOfLongestSubstring(edtInputLC3.Text).ToString;
+end;
+
+procedure TfrmConcepts.btnLoadProductsRTTIClick(Sender: TObject);
+var
+  Products: TProductList;
+  jObj : TJSONObject;
+begin
+  Products := TDataLoader.LoadProducts(fdqProducts);
+  try
+    jObj := TJson.ObjectToJsonObject(Products);
+    try
+      mmoProducts.Lines.Text := jObj.ToJSON;
+    finally
+      jObj.Free;
+    end;
+  finally
+    Products.Free;
+  end;
+end;
+
+procedure TfrmConcepts.btnProductInsertClick(Sender: TObject);
+var
+  Product: TProduct;
+begin
+  Product := TProduct.Create;
+  try
+    Product.ProductID := StrToInt(lblID.Text);
+    Product.Description := lblDescription.Text;
+    Product.Cost := StrToCurr(lblCost.Text);
+    Product.Category := lblCategory.Text;
+    if TDataLoader.Insert<TProduct>(Product,fdqProducts) then
+      ShowMessage('Product inserted')
+    else
+      ShowMessage('failed to insert product');
+  finally
+    Product.Free;
+  end;
 end;
 
 procedure TfrmConcepts.btnThreadStartClick(Sender: TObject);
@@ -124,7 +182,7 @@ begin
   pb := TProgressBar(FindComponent('pb'+IntToStr(ANumber)));
   lbl := TLabel(FindComponent('lbl'+IntToStr(ANumber)));
 
-  pb.Max := 100;
+  pb.Max := 1000;
   pb.Min := 0;
   pb.Position := 0;
   pb.Step := 1;
@@ -139,7 +197,7 @@ begin
     begin
       while(pb.Position < pb.Max) do
       begin
-        iSleep := RandomRange(50,250);
+        iSleep := RandomRange(5,25);
         Sleep(iSleep);
         pb.StepIt;
         TThread.Synchronize(nil,procedure

@@ -3,7 +3,8 @@ program DelphiConcepts;
 uses
   Vcl.Forms,
   ufrmConcepts in 'ufrmConcepts.pas' {frmConcepts},
-  uUtils in 'uUtils.pas';
+  uUtils in 'uUtils.pas',
+  uRttiExample in 'uRttiExample.pas';
 
 {$R *.res}
 

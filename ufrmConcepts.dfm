@@ -10,15 +10,13 @@ object frmConcepts: TfrmConcepts
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
-  PixelsPerInch = 96
   TextHeight = 13
   object pgc1: TPageControl
     Left = 0
     Top = 0
     Width = 861
     Height = 292
-    ActivePage = tsLeetCode
+    ActivePage = tsRTTI
     Align = alClient
     TabOrder = 0
     object tsThreads: TTabSheet
@@ -51,7 +49,6 @@ object frmConcepts: TfrmConcepts
           Width = 77
           Height = 24
           Margins.Left = 10
-          Margins.Bottom = 3
           Align = alRight
           AutoSize = False
           Caption = 'Position: 111'
@@ -81,7 +78,6 @@ object frmConcepts: TfrmConcepts
           Width = 77
           Height = 24
           Margins.Left = 10
-          Margins.Bottom = 3
           Align = alRight
           AutoSize = False
           Caption = 'Position: 111'
@@ -111,7 +107,6 @@ object frmConcepts: TfrmConcepts
           Width = 77
           Height = 24
           Margins.Left = 10
-          Margins.Bottom = 3
           Align = alRight
           AutoSize = False
           Caption = 'Position: 111'
@@ -141,7 +136,6 @@ object frmConcepts: TfrmConcepts
           Width = 77
           Height = 24
           Margins.Left = 10
-          Margins.Bottom = 3
           Align = alRight
           AutoSize = False
           Caption = 'Position: 111'
@@ -171,7 +165,6 @@ object frmConcepts: TfrmConcepts
           Width = 77
           Height = 24
           Margins.Left = 10
-          Margins.Bottom = 3
           Align = alRight
           AutoSize = False
           Caption = 'Position: 111'
@@ -224,7 +217,6 @@ object frmConcepts: TfrmConcepts
             ParentFont = False
             ReadOnly = True
             TabOrder = 0
-            Zoom = 100
           end
           object pnl2: TPanel
             Left = 0
@@ -253,6 +245,7 @@ object frmConcepts: TfrmConcepts
               Align = alLeft
               TabOrder = 2
               Text = 'Input'
+              ExplicitHeight = 21
             end
             object edtOutputTwoSum: TEdit
               AlignWithMargins = True
@@ -263,6 +256,7 @@ object frmConcepts: TfrmConcepts
               Align = alLeft
               TabOrder = 3
               Text = 'Output'
+              ExplicitHeight = 21
             end
             object edtTargetTwoSum: TEdit
               AlignWithMargins = True
@@ -273,6 +267,7 @@ object frmConcepts: TfrmConcepts
               Align = alLeft
               TabOrder = 1
               Text = 'Target'
+              ExplicitHeight = 21
             end
           end
         end
@@ -306,6 +301,7 @@ object frmConcepts: TfrmConcepts
               Align = alLeft
               TabOrder = 1
               Text = 'Input'
+              ExplicitHeight = 21
             end
             object edtOutputLC3: TEdit
               AlignWithMargins = True
@@ -316,6 +312,7 @@ object frmConcepts: TfrmConcepts
               Align = alLeft
               TabOrder = 2
               Text = 'Output'
+              ExplicitHeight = 21
             end
           end
           object RichEdit1: TRichEdit
@@ -367,10 +364,170 @@ object frmConcepts: TfrmConcepts
             ReadOnly = True
             ScrollBars = ssVertical
             TabOrder = 1
-            Zoom = 100
           end
         end
       end
     end
+    object tsRTTI: TTabSheet
+      Caption = 'Rtti'
+      ImageIndex = 2
+      object pnlProductsList: TPanel
+        Left = 0
+        Top = 0
+        Width = 305
+        Height = 264
+        Align = alLeft
+        BevelOuter = bvNone
+        TabOrder = 0
+        ExplicitTop = 25
+        ExplicitHeight = 239
+        object mmoProducts: TMemo
+          Left = 0
+          Top = 25
+          Width = 305
+          Height = 239
+          Margins.Top = 15
+          Align = alClient
+          TabOrder = 0
+          ExplicitLeft = 305
+          ExplicitWidth = 548
+        end
+        object btnLoadProductsRTTI: TButton
+          Left = 0
+          Top = 0
+          Width = 305
+          Height = 25
+          Align = alTop
+          Caption = 'Load Products'
+          TabOrder = 1
+          OnClick = btnLoadProductsRTTIClick
+          ExplicitWidth = 853
+        end
+      end
+      object pnlCrudProducts: TPanel
+        Left = 305
+        Top = 0
+        Width = 548
+        Height = 264
+        Align = alClient
+        BevelOuter = bvNone
+        TabOrder = 1
+        ExplicitLeft = 311
+        object lblID: TLabeledEdit
+          AlignWithMargins = True
+          Left = 3
+          Top = 15
+          Width = 542
+          Height = 22
+          Margins.Top = 15
+          Align = alTop
+          EditLabel.Width = 51
+          EditLabel.Height = 13
+          EditLabel.Caption = 'Product ID'
+          EditLabel.Layout = tlTop
+          TabOrder = 0
+          Text = ''
+          ExplicitTop = 3
+        end
+        object lblDescription: TLabeledEdit
+          AlignWithMargins = True
+          Left = 3
+          Top = 55
+          Width = 542
+          Height = 22
+          Margins.Top = 15
+          Align = alTop
+          EditLabel.Width = 53
+          EditLabel.Height = 13
+          EditLabel.Caption = 'Description'
+          EditLabel.Layout = tlTop
+          TabOrder = 1
+          Text = ''
+          ExplicitLeft = 6
+          ExplicitTop = 122
+        end
+        object lblCost: TLabeledEdit
+          AlignWithMargins = True
+          Left = 3
+          Top = 95
+          Width = 542
+          Height = 22
+          Margins.Top = 15
+          Align = alTop
+          EditLabel.Width = 22
+          EditLabel.Height = 13
+          EditLabel.Caption = 'Cost'
+          EditLabel.Layout = tlTop
+          TabOrder = 2
+          Text = ''
+          ExplicitWidth = 541
+        end
+        object lblCategory: TLabeledEdit
+          AlignWithMargins = True
+          Left = 3
+          Top = 135
+          Width = 542
+          Height = 22
+          Margins.Top = 15
+          Align = alTop
+          EditLabel.Width = 45
+          EditLabel.Height = 13
+          EditLabel.Caption = 'Category'
+          EditLabel.Layout = tlTop
+          TabOrder = 3
+          Text = ''
+          ExplicitLeft = 6
+          ExplicitTop = 175
+        end
+        object pnlProductButtons: TPanel
+          Left = 0
+          Top = 223
+          Width = 548
+          Height = 41
+          Align = alBottom
+          BevelOuter = bvNone
+          TabOrder = 4
+          ExplicitLeft = 184
+          ExplicitTop = 112
+          ExplicitWidth = 185
+          object btnProductInsert: TButton
+            AlignWithMargins = True
+            Left = 3
+            Top = 3
+            Width = 75
+            Height = 35
+            Align = alLeft
+            Caption = 'Insert'
+            TabOrder = 0
+            OnClick = btnProductInsertClick
+            ExplicitLeft = 240
+            ExplicitTop = 8
+            ExplicitHeight = 25
+          end
+        end
+      end
+    end
+  end
+  object FDConnection1: TFDConnection
+    ConnectionName = 'db-tests'
+    Params.Strings = (
+      'DriverID=FB'
+      'Database=C:\Dados\DB-TESTS.FDB'
+      'Password=carmofae'
+      'User_Name=sysdba')
+    Connected = True
+    LoginPrompt = False
+    Left = 600
+    Top = 200
+  end
+  object fdqProducts: TFDQuery
+    Connection = FDConnection1
+    Left = 588
+    Top = 120
+  end
+  object dsProducts: TDataSource
+    DataSet = fdqProducts
+    Left = 504
+    Top = 112
   end
 end
